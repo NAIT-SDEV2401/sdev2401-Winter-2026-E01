@@ -1,0 +1,50 @@
+from django.shortcuts import render
+
+PET_TYPES = {
+    'dog': {
+        'name': 'Dog',
+        'traits': 'Loyal, energetic, needs space and exercise.',
+        'lifestyle_fit': 'active'
+    },
+    'cat': {
+        'name': 'Cat',
+        'traits': 'Independent, cuddly, low-maintenance.',
+        'lifestyle_fit': 'quiet'
+    },
+    'rabbit': {
+        'name': 'Rabbit',
+        'traits': 'Gentle, small, requires calm environment.',
+        'lifestyle_fit': 'quiet'
+    },
+    'parrot': {
+        'name': 'Parrot',
+        'traits': 'Social, intelligent, needs stimulation.',
+        'lifestyle_fit': 'social'
+    }
+}
+
+# Create your views here.
+def home_page(request):
+    return render(request, 'home_page.html', {'pet_types': PET_TYPES})
+
+def pet_type_details(request, pet_type):
+    context = {
+        "pet_type": pet_type, # this is from the url
+    }
+    pet_data = PET_TYPES.get(pet_type, None)
+    context['pet_data'] = pet_data
+    
+    return render(request, 'pet_details.html', context)
+
+def pets_for_lifestyle(request, lifestyle_fit):
+    context = {
+        "lifestyle_fit": lifestyle_fit, # this is from the url
+        'pet_types': PET_TYPES
+    }
+    matching_pets = []
+    for index, details in PET_TYPES.items():
+        if details['lifestyle_fit'] == lifestyle_fit:
+            matching_pets += details['name'] # adds each letter individually
+    context['matching_pets'] = matching_pets
+    # print(matching_pets)
+    return render(request, 'pets_for_lifestyle.html', context)
