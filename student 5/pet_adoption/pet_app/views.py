@@ -36,15 +36,12 @@ def pet_type_details(request, pet_type):
     
     return render(request, 'pet_details.html', context)
 
-def pets_for_lifestyle(request, lifestyle_fit):
+def pets_for_lifestyle(request, lifestyle):
+    lifestyle = lifestyle
+    matching_pets = [pet for pet, details in PET_TYPES.items() if details['lifestyle_fit'] == lifestyle]
     context = {
-        "lifestyle_fit": lifestyle_fit, # this is from the url
-        'pet_types': PET_TYPES
+        'lifestyle': lifestyle,
+        'matching_pets': matching_pets
     }
-    matching_pets = []
-    for index, details in PET_TYPES.items():
-        if details['lifestyle_fit'] == lifestyle_fit:
-            matching_pets += details['name'] # adds each letter individually
-    context['matching_pets'] = matching_pets
-    # print(matching_pets)
-    return render(request, 'pets_for_lifestyle.html', context)
+
+    return render(request, 'lifestyle_pets.html', context)
