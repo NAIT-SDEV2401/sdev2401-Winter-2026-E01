@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4x&^%@gze1*73ag2ybfu$-_i7e5xs-d$6c#9_@mej%x+0&nh1&'
+SECRET_KEY = 'django-insecure-wf3c+55(v^vaj+n1c0pdzz=g&3ycukihe66p*6jllhh$9+33b*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # adding pet app
     'pet_app',
 ]
 
@@ -56,7 +55,7 @@ ROOT_URLCONF = 'pet_adoption.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
