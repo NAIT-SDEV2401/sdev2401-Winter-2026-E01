@@ -57,7 +57,7 @@ ROOT_URLCONF = "mysoftwarecompany.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -77,8 +77,12 @@ WSGI_APPLICATION = "mysoftwarecompany.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "mysoftwarecompany_db",
+        "USER": "dbadmin",
+        "PASSWORD": "dbadmin",
+        "HOST": "localhost", # if left blank, will default to localhost
+        "PORT": "5432", # if left blank, will default to 5432
     }
 }
 
