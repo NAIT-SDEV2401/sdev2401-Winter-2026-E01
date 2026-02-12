@@ -1,8 +1,10 @@
 from django.db.models import Q
 from django.shortcuts import render
+from django.core.mail import send_mail
 
 # get the specical function to fetch an object or return a 404 error
 from django.shortcuts import get_object_or_404
+from .forms import ContactForm
 
 # Create your views here.
 from .models import Company, Employee
@@ -44,3 +46,33 @@ def employees_search_results(request, company_id):
     # return
     return render(request, 'clients/employees_search_results.html',
                   {'employees': employees, 'query': query, 'company': company})
+
+def contact_us(request):
+    #handle GET requests
+    if request.method == "GET":
+        form = ContactForm()
+        return render(request, "clients/contact_us.html", {"form": form})
+    elif request.method == "POST":
+        form = ContactForm(request.POST)
+        # ensure the form is valid
+        if form.is_valid():
+            # Process the cleaned data
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+
+            #send an email the some_admin_account@test.com
+            send_mail(
+                subject=f"New contact us Message from {name}",
+                message=message,
+                from_email=email,
+                recipient_list=["some_admin_account@test.com"]
+            )
+
+            return render(request, "clients/contact_us.html", {"form": ContactForm(), "success": True})
+        else:
+            #this is going to rerender the form with error messages
+            return render(request, "clients/contact_us.html", {"form": form})
+    else:
+        return render(request, "clients/contact_us.html", {"form": ContactForm()})
+
