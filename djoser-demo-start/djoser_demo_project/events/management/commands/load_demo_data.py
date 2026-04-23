@@ -62,20 +62,20 @@ class Command(BaseCommand):
         )
 
         # TODO Part 2: Add event3 — "REST API Summit"
-        # event3 = Event.objects.create(
-        #     name="REST API Summit",
-        #     description="Conference focused on API design and best practices.",
-        #     location="Vancouver, BC",
-        #     start_date="2025-09-10",
-        #     end_date="2025-09-12",
-        # )
-        # Talk.objects.create(
-        #     event=event3,
-        #     title="Building APIs with Djoser",
-        #     description="A walkthrough of token authentication using Djoser and Django REST Framework.",
-        #     speaker_name="Alex Rivera",
-        #     status="scheduled",
-        #     scheduled_time=datetime(2025, 9, 10, 10, 0, tzinfo=timezone.utc),
-        # )
+        event3 = Event.objects.create(
+            name="REST API Summit",
+            description="Conference focused on API design and best practices.",
+            location="Vancouver, BC",
+            start_date="2025-09-10",
+            end_date="2025-09-12",
+        )
+        Talk.objects.create(
+            event=event3,
+            title="Building APIs with Djoser",
+            description="A walkthrough of token authentication using Djoser and Django REST Framework.",
+            speaker_name="Alex Rivera",
+            status="scheduled",
+            scheduled_time=datetime(2025, 9, 10, 10, 0, tzinfo=timezone.utc),
+        )
 
         self.stdout.write(self.style.SUCCESS("Demo data loaded successfully."))

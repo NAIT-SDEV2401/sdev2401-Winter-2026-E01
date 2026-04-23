@@ -15,6 +15,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # third-party
+    "rest_framework",
+    "rest_framework.authtoken",
+    "djoser",
     # local
     "core",
     "events",
@@ -75,6 +79,23 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "core.User"
 
 # TODO Part 1: Add REST_FRAMEWORK settings here (TokenAuthentication + IsAuthenticated)
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ]
+}
 
 # TODO Part 1: Add DJOSER settings here (USER_ID_FIELD, USER_CREATE_PASSWORD_RETYPE, SERIALIZERS)
 #              Point serializers to core.serializers.CustomUserCreateSerializer and core.serializers.CustomUserSerializer
+DJOSER = {
+    "USER_ID_FIELD": "username",
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SERIALIZERS": {
+        "user_create": "core.serializers.CustomUserCreateSerializer",
+        "user": "core.serializers.CustomUserSerializer",
+        "current_user": "core.serializers.CustomUserSerializer",
+    },
+}
